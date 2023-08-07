@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- object map node -->
+  <node name="object_map" pkg="object_map" type="object_map" output ="screen">
+  <rosparam command="load" file="$(find object_map)/param/parameters.yaml"/>
+  </node>
+
+</launch>

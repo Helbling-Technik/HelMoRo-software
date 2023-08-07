@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<launch>
+
+    <arg name="joystick_name" default="js0" />
+    <!-- Deadzone -->
+    <arg name="joystick_deadzone" default="0.2" />
+		<arg name="use_joy" default="true" />
+    <!-- Topic -->
+    <arg name="joystick_topic" default="/helmoro_joystick" />
+
+  	<rosparam command="load" ns="helmoro_joymanager" file="$(find helmoro_joymanager)/param/parameters.yaml"/>
+
+    <!-- Launch the joy node -->
+    <node respawn="true" pkg="joy" type="joy_node" name="helmoro_joystick" output="screen">
+        <param name="dev" type="string" value="/dev/input/$(arg joystick_name)" />
+        <param name="deadzone" type="double" value="$(arg joystick_deadzone)" />
+        <remap from="/joy" to="$(arg joystick_topic)"/>
+    </node>
+
+
+    <!-- Run joymanager node -->   
+    <node pkg="helmoro_joymanager" type="helmoro_joymanager_node" name="helmoro_joymanager"
+    	output="screen">
+    </node>
+</launch>

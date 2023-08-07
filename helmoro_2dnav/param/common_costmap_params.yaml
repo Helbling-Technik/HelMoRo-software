@@ -1,0 +1,71 @@
+#footprint: [[-0.128, 0.106], [0.188, 0.106], [0.188, -0.106], [-0.128, -0.106]] #with fork
+footprint: [[-0.128, 0.106], [0.128, 0.106], [0.128, -0.106], [-0.128, -0.106]] # without fork
+footprint_padding: 0.01
+#robot_radius: ir_of_robot
+
+obstacle_layer:
+  enabled: true
+  max_obstacle_height: 0.16
+  obstacle_range: 8.0
+  raytrace_range: 12.0
+
+  observation_sources: point_cloud_sensor laser_scan_sensor
+  laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true, inf_is_valid: true}
+  #point_cloud_sensor: {data_type: PointCloud2, topic: /pointcloud_filtered, marking: true, clearing: true, min_obstacle_height: 0.0}
+  
+  #track_unknown_space: true
+  #publish_voxel_map: true
+  #footprint_clearing_enabled: false
+
+inflation_layer:
+  enabled: true
+  inflation_radius: 1 # 1.75   0.4
+  cost_scaling_factor: 3 #5 2.58    7
+
+static_layer: 
+  enabled: true
+
+object_map_layer:
+  enabled: false
+  inflation_radius: 0.4
+  cost_scaling_factor: 7
+
+
+# lower_obstacle_layer:
+#   enabled: true
+#   max_obstacle_height: 0.13 
+#   obstacle_range: 8.0
+#   raytrace_range: 12.0
+
+#   observation_sources: point_cloud_sensor
+#   point_cloud_sensor: {sensor_frame: camera_link, data_type: PointCloud2, topic: /pointcloud_filtered, marking: true, clearing: true, min_obstacle_height: -10.0}
+
+# upper_obstacle_layer:
+#   enabled: true
+#   max_obstacle_height: 0.16
+#   obstacle_range: 8.0
+#   raytrace_range: 12.0
+
+#   observation_sources: point_cloud_sensor laser_scan_sensor
+#   laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+#   point_cloud_sensor: {sensor_frame: camera_link, data_type: PointCloud2, topic: /pointcloud_filtered, marking: true, clearing: true, min_obstacle_height: 0.13}
+#   #publish_voxel_map: true
+#   #footprint_clearing_enabled: false
+
+# rgbd_obstacle_layer:
+#   enabled: true
+#   max_obstacle_height: 0.16 
+#   obstacle_range: 7.0
+#   raytrace_range: 12.0
+
+#   observation_sources: point_cloud_sensor
+#   point_cloud_sensor: {sensor_frame: camera_rgb_optical_frame, data_type: PointCloud2, topic: /pointcloud_filtered, marking: true, clearing: true, min_obstacle_height: -10.0}
+
+# lidar_obstacle_layer:
+#   enabled: true
+#   max_obstacle_height: 0.16
+#   obstacle_range: 8.0
+#   raytrace_range: 12.0
+
+#   observation_sources: laser_scan_sensor
+#   laser_scan_sensor: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}  

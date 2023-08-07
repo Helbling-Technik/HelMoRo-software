@@ -1,0 +1,14 @@
+# object color
+uint8 color # Needs to be specified
+# Object UID, if desired. If uid == -1 most often seen object is selected
+int32 uid 
+---
+# single object from map 
+
+# general header
+Header header
+
+# object detections
+uint32 uid
+uint8 color
+geometry_msgs/Point point

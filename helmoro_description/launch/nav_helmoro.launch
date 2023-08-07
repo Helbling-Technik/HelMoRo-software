@@ -1,0 +1,26 @@
+<launch>
+  <!--Remember to specify the correct map in helmoro_2dnav/move_base.launch-->
+  <!--Navigation Stack arguments-->
+  <arg name="use_rviz" default="false"/>
+  <arg name="use_gui" default="false"/>
+  <arg name="is_real_robot" default="true"/>
+  <arg name="running_in_standalone" default="true"/>
+  <arg name="use_joystick" default="$(arg use_rviz)"/>
+
+
+  <!--Helmoro-->
+  <include file="$(find helmoro_description)/launch/helmoro.launch">
+    <arg name="is_real_robot" value="$(arg is_real_robot)"/>
+    <arg name="use_rviz" value="$(arg use_rviz)"/>
+    <arg name="use_gui" value="$(arg use_gui)"/>
+    <arg name="running_in_standalone" value="$(arg running_in_standalone)"/>
+    <arg name="use_joystick" value="$(arg use_joystick)"/>
+  </include>
+
+  <!--Run navigation stack-->
+  <include file="$(find helmoro_2dnav)/move_base.launch">
+    <arg name="is_real_robot" value="$(arg is_real_robot)"/>
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="world_map_broadcaster" args="-1 -1 0.08 0 0 0  world map 100" unless="$(arg running_in_standalone)"/>
+</launch>

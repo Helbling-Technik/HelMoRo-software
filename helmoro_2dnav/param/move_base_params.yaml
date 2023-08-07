@@ -1,0 +1,29 @@
+# The general configuration parameters of the # move_base package
+
+# shutdown_costmaps: Whether the costmap is turned off when move_base is inactive.
+shutdown_costmaps: false
+
+# controller_frequency: Controls the frequency at which the mobile theme cmd_vel sends commands to the chassis.
+controller_frequency: 2.0
+
+# controller_patience: How long the controller spends effective control before the space cleanup operation is performed.
+controller_patience: 15.0
+
+# planner_frequency: The execution frequency of the global planning operation. If set to 0.0, the global planner only runs for new goals or if the path is blocked
+planner_frequency: 0.0
+
+# planner_patience: How long to leave the planner to find an effective plan before the space cleanup operation is performed.
+planner_patience: 5.0
+
+# oscillation_timeout: The length of time that the oscillation is allowed before the repair mechanism is executed.
+oscillation_timeout: 8.0
+
+# oscillation_distance: The distance between the back and forth movements is not considered to be an oscillation.
+oscillation_distance: 0.3
+
+# base_local_planner: Specify the local planner plugin name for move_base.
+
+# Uncomment this line if you want to use the DWA planner. If commented out the base_local_planner is used and also comment in the params in the launch file
+base_local_planner: "dwa_local_planner/DWAPlannerROS"
+# base_global_planner: Specify the global planner plugin name for move_base.
+# base_global_planner: "global_planner/GlobalPlanner"

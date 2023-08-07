@@ -1,0 +1,106 @@
+gazebo:
+    publishers:
+        manipulator_state:
+            topic: /manipulator_state
+            queue_size: 100
+            latch: false
+
+    plugin:
+        time_step: 0.01
+
+    servers:
+        manipulator_pid_service:
+            service: /manipulator_controller_gains
+
+    default_manipulator_control_positions:
+        - deg(0.0)
+        - deg(10.0) 
+        - deg(80.0)
+        - deg(40.0)
+        - deg(20.0)
+        - deg(20.0)
+
+    mounting_pose:
+        parent_link: TELE
+        offset_x: 0.7
+        offset_y: 0.2
+        offset_z: 0.52
+        rotation_r: 0
+        rotation_p: 0
+        rotation_y: 0
+  
+    position_pids:
+        Shoulder1:
+            p: 600
+            i: 0
+            d: 180
+            i_max: 100000
+            i_min: -100000
+        Shoulder2:
+            p: 700
+            i: 0
+            d: 220
+            i_max: 10000
+            i_min: -10000
+        Elbow:
+            p: 200
+            i: 0
+            d: 70
+            i_max: 10000
+            i_min: -10000
+        Wrist1:
+            p: 1000
+            i: 0
+            d: 20
+            i_max: 10000
+            i_min: -10000
+        Wrist2:
+            p: 1000
+            i: 0
+            d: 20
+            i_max: 100000
+            i_min: -100000
+        Wrist3:
+            p: 10
+            i: 0
+            d: 0.25
+            i_max: 100000
+            i_min: -100000
+
+    velocity_pids:
+        Shoulder1:
+            p: 50
+            i: 0
+            d: 0
+            i_max: 1000000
+            i_min: -1000000
+        Shoulder2:
+            p: 50
+            i: 0
+            d: 0
+            i_max: 1000000
+            i_min: -1000000
+        Elbow:
+            p: 50
+            i: 0
+            d: 0
+            i_max: 1000000
+            i_min: -1000000
+        Wrist1:
+            p: 50
+            i: 0
+            d: 0
+            i_max: 1000000
+            i_min: -1000000
+        Wrist2:
+            p: 50
+            i: 0
+            d: 0
+            i_max: 1000000
+            i_min: -1000000
+        Wrist3:
+            p: 50
+            i: 0
+            d: 0
+            i_max: 1000000
+            i_min: -1000000

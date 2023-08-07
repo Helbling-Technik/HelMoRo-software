@@ -1,0 +1,57 @@
+<?xml version='1.0'?>
+<sdf version="1.5">
+    <model name='ground_plane'>
+        <static>1</static>
+        <link name='link'>
+            <collision name='collision'>
+                <geometry>
+                    <plane>
+                        <normal>0 0 1</normal>
+                        <size>100 100</size>
+                    </plane>
+                </geometry>
+                <surface>
+                    <friction>
+                        <ode>
+                            <mu>0.5</mu>
+                            <mu2>0.5</mu2>
+                        </ode>
+                        <bullet>
+                            <rolling_friction>0.02</rolling_friction>
+                        </bullet>
+                    </friction>
+                    <contact>
+                        <ode>
+                            <kp>5000000.0</kp>
+                            <kd>200000.0</kd>
+                        </ode>
+                    </contact>
+                    <bounce/>
+                </surface>
+                <max_contacts>10</max_contacts>
+            </collision>
+            <visual name='visual'>
+                <cast_shadows>0</cast_shadows>
+                <geometry>
+                    <plane>
+                        <normal>0 0 1</normal>
+                        <size>100 100</size>
+                    </plane>
+                </geometry>
+                <material>
+                    <script>
+                        <uri>file://media/materials/scripts/gazebo.material</uri>
+                        <name>Gazebo/Grey</name>
+                    </script>
+                </material>
+            </visual>
+            <velocity_decay>
+                <linear>0</linear>
+                <angular>0</angular>
+            </velocity_decay>
+            <self_collide>0</self_collide>
+            <kinematic>0</kinematic>
+            <gravity>1</gravity>
+        </link>
+    </model>
+</sdf>

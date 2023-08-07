@@ -1,0 +1,21 @@
+<launch>
+  <master auto="start" />
+
+  <!-- Params -->
+  <arg name="is_real_robot" default="true" />
+  <arg name="use_rviz" default="false" />
+  <arg name="use_gui" default="false" />
+  <arg name="running_in_standalone" default="true"/>
+
+  <!--Helmoro-->
+  <include file="$(find helmoro_description)/launch/helmoro.launch">
+    <arg name="is_real_robot" value="$(arg is_real_robot)" />
+    <arg name="use_rviz" value="$(arg use_rviz)" />
+    <arg name="use_gui" value="$(arg use_gui)" />
+    <arg name="running_in_standalone" value="$(arg running_in_standalone)"/>
+  </include>
+
+  <!--Run gmapping-->
+  <include file="$(find helmoro_description)/launch/gmapping.launch" />
+
+</launch>

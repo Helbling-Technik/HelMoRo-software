@@ -1,0 +1,33 @@
+<launch>
+
+  <master auto="start" />
+  <!--Switch if costmap published by move_base (Navigation Stack) or if map published by gmapping should be used by explore_lite for setting goals-->
+  <!--Keep in mind: if you want to run explore_lite using the costmap from move_base, you need to set 
+  track_unknown_space to true in common_costmap_params.yaml-->
+  <arg name="use_movebase_costmap" default="false" />
+  <arg name="is_real_robot" default="true" />
+  <arg name="use_rviz" default="false" />
+  <arg name="use_gui" default="false" />
+
+  <!--Helmoro-->
+  <include file="$(find helmoro_description)/launch/helmoro.launch">
+    <arg name="is_real_robot" value="$(arg is_real_robot)" />
+    <arg name="use_rviz" value="$(arg use_rviz)" />
+    <arg name="use_gui" value="$(arg use_gui)" />
+  </include>
+
+  <!--Run gmapping-->
+  <include file="$(find helmoro_description)/launch/gmapping.launch" />
+
+  <!--Run navigation stack without AMCL and map server-->
+  <include file="$(find helmoro_2dnav)/move_base_explore.launch" />
+
+  <!--Run explore_lite-->
+  <group if="$(arg use_movebase_costmap)">
+    <include file="$(find helmoro_description)/launch/explore_lite/explore_costmap.launch" />
+  </group>
+  <group unless="$(arg use_movebase_costmap)">
+    <include file="$(find helmoro_description)/launch/explore_lite/explore.launch" />
+  </group>
+
+</launch>

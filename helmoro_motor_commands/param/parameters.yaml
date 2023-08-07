@@ -1,0 +1,21 @@
+motor_controllers:
+  address_left: 128
+  address_right: 129
+  baudrate: 115200
+
+integral:
+  ki_factor: 0.4 #1.0
+
+publishers:
+  joint_states_publisher:
+    topic: /helmoro_joint_states
+    queue_size: 1
+    latch: false
+  motor_commands_publisher:
+    topic: /helmoro_motor_commands
+    queue_size: 1
+    latch: false
+
+time_step_pub: 0.05 #0.02
+
+# if changing the rate of the loop, you may have to change the ki_factor as well! (v_i += ki_factor * time_step_pub * error)
