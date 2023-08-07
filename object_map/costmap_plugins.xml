@@ -1,0 +1,5 @@
+<library path="lib/libobject_map_layer">
+  <class type="object_map_layer_namespace::ObjectMapLayer" base_class_type="costmap_2d::Layer">
+    <description>Object Map Layer that adds an obstacle where a object is expexted</description>
+  </class>
+</library>

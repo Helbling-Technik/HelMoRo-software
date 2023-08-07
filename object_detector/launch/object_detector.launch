@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- object detector node -->
+  <node name="object_detector" pkg="object_detector" type="object_detector" output ="screen">
+    <rosparam command="load" file="$(find object_detector)/param/parameters.yaml"/>
+  </node>
+
+</launch>

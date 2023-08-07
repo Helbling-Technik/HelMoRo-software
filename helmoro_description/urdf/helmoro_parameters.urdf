@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+
+<!--  This file defines manipulator segment properties macros for building up the Helbling mobile robot. -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:property name="PI" value="3.1415926535897931" />
+	<xacro:property name="wheel_radius" value="0.045" />
+	<xacro:property name="wheel_width" value="0.01" />
+	<xacro:property name="wheel_mass" value="1" />
+	<xacro:property name="wheel_ixx" value="${1/4*wheel_mass*wheel_radius*wheel_radius + 1/12*wheel_mass*wheel_width*wheel_width}" />
+	<xacro:property name="wheel_izz" value="${1/2*wheel_mass*wheel_radius*wheel_radius}" />
+
+
+	<!-- Link 1 -->
+	<xacro:property name="link_1_name" value="base_link" />
+	<xacro:property name="link_1_mesh" value="package://helmoro_description/meshes/Cover.STL" />
+	<xacro:property name="link_1_length" value="0.256" />
+	<xacro:property name="link_1_width" value="0.09" />
+	<xacro:property name="link_1_height" value="0.110" />
+	<xacro:property name="link_1_origin_xyz" value="0 0 0" />
+	<xacro:property name="link_1_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_1_collision_origin_xyz" value="0 0 0.034" />
+	<xacro:property name="link_1_collision_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_1_mass" value="1.0" />
+	<xacro:property name="link_1_cog" value="0 0 0" />
+	<xacro:property name="link_1_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_1_ixx" value="0.006667" />
+	<xacro:property name="link_1_iyy" value="0.006667" />
+	<xacro:property name="link_1_izz" value="0.006667" />
+	<xacro:property name="link_1_iyz" value="0" />
+	<xacro:property name="link_1_ixz" value="0" />
+	<xacro:property name="link_1_ixy" value="0" />
+
+	<!-- Joint 1 -->
+	<xacro:property name="joint_1_name" value="${link_1_name}_to_${link_2_name}" />
+	<xacro:property name="joint_1_type" value="continuous" />
+	<xacro:property name="joint_1_origin_xyz" value="0.0575 -0.0925 -0.035" />
+	<xacro:property name="joint_1_origin_rpy" value="${-PI/2} 0 0" />
+	<xacro:property name="joint_1_axis" value="0 0 1" />
+	<xacro:property name="joint_1_parent" value="${link_1_name}" />
+	<xacro:property name="joint_1_child" value="${link_2_name}" />
+
+	<!-- Link 2 -->
+	<xacro:property name="link_2_name" value="RIGHT_FRONT_WHEEL" />
+	<xacro:property name="link_2_radius" value="${wheel_radius}" />
+	<xacro:property name="link_2_length" value="${wheel_width}" />
+	<xacro:property name="link_2_origin_xyz" value="0 0 ${-(link_2_length/2)}" />
+	<xacro:property name="link_2_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_2_collision_origin_xyz" value="0 0 ${-(link_2_length/2)}" />
+	<xacro:property name="link_2_collision_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_2_mass" value="${wheel_mass}" />
+	<xacro:property name="link_2_cog" value="0 0 ${link_2_length/2}" />
+	<xacro:property name="link_2_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_2_ixx" value="${wheel_ixx}" />
+	<xacro:property name="link_2_iyy" value="${wheel_ixx}" />
+	<xacro:property name="link_2_izz" value="${wheel_izz}" />
+	<xacro:property name="link_2_iyz" value="0" />
+	<xacro:property name="link_2_ixz" value="0" />
+	<xacro:property name="link_2_ixy" value="0" />
+
+	<!-- Joint 2 -->
+	<xacro:property name="joint_2_name" value="${link_1_name}_to_${link_3_name}" />
+	<xacro:property name="joint_2_type" value="continuous" />
+	<xacro:property name="joint_2_origin_xyz" value="0.0575 0.0925 -0.035" />
+	<xacro:property name="joint_2_origin_rpy" value="${-PI/2} 0 0" />
+	<xacro:property name="joint_2_axis" value="0 0 1" />
+	<xacro:property name="joint_2_parent" value="${link_1_name}" />
+	<xacro:property name="joint_2_child" value="${link_3_name}" />
+
+	<!-- Link 3 -->
+	<xacro:property name="link_3_name" value="LEFT_FRONT_WHEEL" />
+	<xacro:property name="link_3_radius" value="${wheel_radius}" />
+	<xacro:property name="link_3_length" value="${wheel_width}" />
+	<xacro:property name="link_3_origin_xyz" value="0 0 ${link_3_length/2}" />
+	<xacro:property name="link_3_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_3_collision_origin_xyz" value="0 0 ${link_3_length/2}" />
+	<xacro:property name="link_3_collision_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_3_mass" value="${wheel_mass}" />
+	<xacro:property name="link_3_cog" value="0 0 ${-link_3_length/2}" />
+	<xacro:property name="link_3_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_3_ixx" value="${wheel_ixx}" />
+	<xacro:property name="link_3_iyy" value="${wheel_ixx}" />
+	<xacro:property name="link_3_izz" value="${wheel_izz}" />
+	<xacro:property name="link_3_iyz" value="0" />
+	<xacro:property name="link_3_ixz" value="0" />
+	<xacro:property name="link_3_ixy" value="0" />
+
+	<!-- Joint 3 -->
+	<xacro:property name="joint_3_name" value="${link_1_name}_to_${link_4_name}" />
+	<xacro:property name="joint_3_type" value="continuous" />
+	<xacro:property name="joint_3_origin_xyz" value="-0.0575 -0.0925 -0.035" />
+	<xacro:property name="joint_3_origin_rpy" value="${-PI/2} 0 0" />
+	<xacro:property name="joint_3_axis" value="0 0 1" />
+	<xacro:property name="joint_3_parent" value="${link_1_name}" />
+	<xacro:property name="joint_3_child" value="${link_4_name}" />
+
+	<!-- Link 4 -->
+	<xacro:property name="link_4_name" value="RIGHT_BACK_WHEEL" />
+	<xacro:property name="link_4_radius" value="${wheel_radius}" />
+	<xacro:property name="link_4_length" value="${wheel_width}" />
+	<xacro:property name="link_4_origin_xyz" value="0 0 ${-(link_4_length/2)}" />
+	<xacro:property name="link_4_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_4_collision_origin_xyz" value="0 0 ${-(link_4_length/2}" />
+	<xacro:property name="link_4_collision_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_4_mass" value="${wheel_mass}" />
+	<xacro:property name="link_4_cog" value="0 0 ${link_4_length/2}" />
+	<xacro:property name="link_4_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_4_ixx" value="${wheel_ixx}" />
+	<xacro:property name="link_4_iyy" value="${wheel_ixx}" />
+	<xacro:property name="link_4_izz" value="${wheel_izz}" />
+	<xacro:property name="link_4_iyz" value="0" />
+	<xacro:property name="link_4_ixz" value="0" />
+	<xacro:property name="link_4_ixy" value="0" />
+
+	<!-- Joint 4 -->
+	<xacro:property name="joint_4_name" value="${link_1_name}_to_${link_5_name}" />
+	<xacro:property name="joint_4_type" value="continuous" />
+	<xacro:property name="joint_4_origin_xyz" value="-0.0575 0.0925 -0.035" />
+	<xacro:property name="joint_4_origin_rpy" value="${-PI/2} 0 0" />
+	<xacro:property name="joint_4_axis" value="0 0 1" />
+	<xacro:property name="joint_4_parent" value="${link_1_name}" />
+	<xacro:property name="joint_4_child" value="${link_5_name}" />
+
+	<!-- Link 5 -->
+	<xacro:property name="link_5_name" value="LEFT_BACK_WHEEL" />
+	<xacro:property name="link_5_radius" value="${wheel_radius}" />
+	<xacro:property name="link_5_length" value="${wheel_width}" />
+	<xacro:property name="link_5_origin_xyz" value="0 0 ${link_5_length/2}" />
+	<xacro:property name="link_5_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_5_collision_origin_xyz" value="0 0 ${link_5_length/2}" />
+	<xacro:property name="link_5_collision_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_5_mass" value="${wheel_mass}" />
+	<xacro:property name="link_5_cog" value="0 0 ${-link_5_length/2}" />
+	<xacro:property name="link_5_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_5_ixx" value="${wheel_ixx}" />
+	<xacro:property name="link_5_iyy" value="${wheel_ixx}" />
+	<xacro:property name="link_5_izz" value="${wheel_izz}" />
+	<xacro:property name="link_5_iyz" value="0" />
+	<xacro:property name="link_5_ixz" value="0" />
+	<xacro:property name="link_5_ixy" value="0" />
+
+	<!-- Joint 5 -->
+	<xacro:property name="joint_5_name" value="${link_1_name}_to_${link_6_name}" />
+	<xacro:property name="joint_5_type" value="fixed" />
+	<xacro:property name="joint_5_origin_xyz" value="0.114 0 0.038" />
+	<xacro:property name="joint_5_origin_rpy" value="0 0 0" />
+	<!--"0 ${-PI/12} 0"/>-->
+	<!--${-PI/2+PI/12} 0 ${-PI/2}-->
+	<!--${PI/2-PI/12} 0 ${PI/2}-->
+	<xacro:property name="joint_5_parent" value="${link_1_name}" />
+	<xacro:property name="joint_5_child" value="${link_6_name}" />
+
+	<!-- Link 6 -->
+	<xacro:property name="link_6_name" value="camera_mesh" />
+	<xacro:property name="link_6_mesh" value="package://helmoro_description/meshes/Orbbec Astra Camera No Mount 2.STL" />
+	<xacro:property name="link_6_origin_xyz" value="0 0 0" />
+	<xacro:property name="link_6_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_6_mass" value="0.1" />
+	<xacro:property name="link_6_cog" value="0 0 0" />
+	<xacro:property name="link_6_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_6_ixx" value="0.1" />
+	<xacro:property name="link_6_iyy" value="0.1" />
+	<xacro:property name="link_6_izz" value="0.1" />
+	<xacro:property name="link_6_iyz" value="0" />
+	<xacro:property name="link_6_ixz" value="0" />
+	<xacro:property name="link_6_ixy" value="0" />
+
+	<!-- Joint 6 -->
+	<xacro:property name="joint_6_name" value="${link_1_name}_to_${link_7_name}" />
+	<xacro:property name="joint_6_type" value="fixed" />
+	<xacro:property name="joint_6_origin_xyz" value="0.01 0 0.0658" />
+	<xacro:property name="joint_6_origin_rpy" value="0 0 ${-PI/2}" />
+	<xacro:property name="joint_6_parent" value="${link_1_name}" />
+	<xacro:property name="joint_6_child" value="${link_7_name}" />
+
+	<!-- Link 7 -->
+	<xacro:property name="link_7_name" value="laser" />
+	<xacro:property name="link_7_mesh" value="package://helmoro_description/meshes/lidar_ROS_V3.STL" />
+	<xacro:property name="link_7_origin_xyz" value="0 0 0" />
+	<xacro:property name="link_7_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_7_mass" value="0.1" />
+	<xacro:property name="link_7_cog" value="0 0 0" />
+	<xacro:property name="link_7_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_7_ixx" value="0.1" />
+	<xacro:property name="link_7_iyy" value="0.1" />
+	<xacro:property name="link_7_izz" value="0.1" />
+	<xacro:property name="link_7_iyz" value="0" />
+	<xacro:property name="link_7_ixz" value="0" />
+	<xacro:property name="link_7_ixy" value="0" />
+
+	<!-- Joint 7 -->
+	<xacro:property name="joint_7_name" value="${link_1_name}_to_${link_8_name}" />
+	<xacro:property name="joint_7_type" value="fixed" />
+	<xacro:property name="joint_7_origin_xyz" value="-0 0 0.001" />
+	<xacro:property name="joint_7_origin_rpy" value="0 0 0" />
+	<xacro:property name="joint_7_parent" value="${link_1_name}" />
+	<xacro:property name="joint_7_child" value="${link_8_name}" />
+
+	<!-- Link 8 -->
+	<xacro:property name="link_8_name" value="imu_link" />
+	<xacro:property name="link_8_length" value="0.02667" />
+	<xacro:property name="link_8_width" value="0.02032" />
+	<xacro:property name="link_8_height" value="0.00415" />
+	<xacro:property name="link_8_origin_xyz" value="0 0 0" />
+	<xacro:property name="link_8_origin_rpy" value="0 0 0" />
+	<xacro:property name="link_8_mass" value="1.0" />
+	<xacro:property name="link_8_cog" value="0 0 0" />
+	<xacro:property name="link_8_inertia_rpy" value="0 0 0" />
+	<xacro:property name="link_8_ixx" value="0.1" />
+	<xacro:property name="link_8_iyy" value="0.1" />
+	<xacro:property name="link_8_izz" value="0.1" />
+	<xacro:property name="link_8_iyz" value="0" />
+	<xacro:property name="link_8_ixz" value="0" />
+	<xacro:property name="link_8_ixy" value="0" />
+
+</robot>

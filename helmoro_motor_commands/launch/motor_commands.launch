@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- helmoro motor commands node -->
+  <node name="helmoro_motor_commands" pkg="helmoro_motor_commands" type="helmoro_motor_commands" output ="screen">
+    <rosparam command="load" file="$(find helmoro_motor_commands)/param/parameters.yaml"/>
+  </node>
+
+</launch>

@@ -1,0 +1,26 @@
+object_pickup:
+  setback_distance: 0.3 #object target lies setback_distance away from object itself, also because gripper requires another 10cm
+  drive_into_object_distance_: 0.07 #distance which helmoro should continue driving, after he (according to his knowledge) hit the object
+  # 1 for mode 1, 2 for mode 2
+  # mode 1: object target: behind object on straight line to goal, orientation: oriented straight to goal position
+  # mode 2;: object target: in front of object on parallel line to the line between helmoro's position and goal position, orientation: oriented along parallel line  
+  target_mode: 2
+  min_speed_during_object_transport: 0.1
+  xy_goal_tolerance_during_turn_with_object: 0.2
+
+
+
+# The position of the global goal, where all blocks are going to be placed
+global_goal:
+  header:
+    frame_id: "map" # reference frame
+  pose:
+    position: # Position of the goal
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    orientation: # Orientation of the goal
+      x: 0
+      y: 0
+      z: 0
+      w: 1

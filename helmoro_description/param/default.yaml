@@ -1,0 +1,12 @@
+actuators:
+    encoder_resolution: 2796.8 #qcpr
+    max_wheel_rot_vel: 21.4 #rad/s rotvel of a wheel
+
+dimensions:
+    wheel_spacing_x: 0.115 #m
+    wheel_spacing_y: 0.195 #m
+    wheel_diameter: 0.09 #m
+
+velocities:
+    max_lin_vel: 1.1 #m/s
+    max_ang_vel: 10.5 #rad/s

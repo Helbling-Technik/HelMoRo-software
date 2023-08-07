@@ -1,0 +1,4 @@
+max_matching_distance: 0.7
+filter_time_constant: 0.5
+update_frequency: 1
+object_detection_threshold: 10
