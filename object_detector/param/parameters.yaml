@@ -1,0 +1,27 @@
+# hue threshold
+# red: 0
+# blue: 115
+# orange: 11
+hue:
+  - 0
+  - 11
+  - 115
+
+hue_width: 5
+
+sv_low:
+  - 50
+  - 20
+
+sv_high:
+  - 255
+  - 255
+
+# depth computation
+mean_block_half_width: 2
+
+# max object height
+max_object_height: 0.2 #0.02
+
+# object detecting amount
+object_detection_valid_after: 1

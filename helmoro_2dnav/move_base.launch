@@ -1,0 +1,27 @@
+<launch>
+
+  <arg name="is_real_robot" default="true" />
+  <param name="is_real_robot" type="bool" value="$(arg is_real_robot)" />
+
+  <master auto="start" />
+  <!-- Run the map server -->
+  <node name="map_server" unless="$(arg is_real_robot)" pkg="map_server" type="map_server" args="$(find helmoro_2dnav)/helmoro_maps/sif_table_gazebo.yaml" />
+  <node name="map_server" if="$(arg is_real_robot)" pkg="map_server" type="map_server" args="/home/helmoro/catkin_ws/src/Helmoro/helmoro_2dnav/helmoro_maps/sif_table_gazebo.yaml" />
+
+  <!--- Run AMCL -->
+  <include file="$(find helmoro_2dnav)/amcl_helmoro.launch" />
+  <!-- Topic -->
+
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find helmoro_2dnav)/param/move_base_params.yaml" command="load" />
+    <rosparam file="$(find helmoro_2dnav)/param/common_costmap_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find helmoro_2dnav)/param/common_costmap_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find helmoro_2dnav)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find helmoro_2dnav)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find helmoro_2dnav)/param/global_planner_params.yaml" command="load" />
+    <rosparam file="$(find helmoro_2dnav)/param/DWA_local_planner_params.yaml" command="load" />
+    <!--<rosparam file="$(find helmoro_2dnav)/param/base_local_planner_params.yaml" command="load" />-->
+  </node>
+
+</launch>

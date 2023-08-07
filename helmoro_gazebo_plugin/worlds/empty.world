@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<sdf version='1.5'>
+    <world name='empty'>
+        <include>
+            <uri>model://m545_gazebo/m545_gazebo/models/m545_ground_plane</uri>
+        </include>
+        <include>
+            <uri>model://m545_gazebo/m545_gazebo/models/m545_sun</uri>
+        </include>
+    </world>
+</sdf>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>helmoro_joymanager</name>
+  <version>0.0.0</version>
+  <description>The Helbling mobile robot joystick manager package</description>
+  
+  <maintainer email="luca.forni@helbling.ch">Luca Forni</maintainer>
+  <author email="luca.forni@helbling.ch">Luca Forni</author>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>helmoro_msgs</depend>
+  <depend>actionlib</depend>
+  <depend>move_base_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>any_node</depend>
+  <depend>helmoro_description</depend>
+
+</package>

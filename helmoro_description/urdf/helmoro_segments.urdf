@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+
+<!--  This file defines segment macros for building up the Helbling mobile robot -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <material name="HELMORO_BLUE">
+    <color rgba="0.3 0.78 1.0 1.0"/> <!-- rviz green color -->
+  </material>
+
+  <material name="HELMORO_BLACK">
+    <color rgba="0.0 0.0 0.0 1.0"/> <!-- rviz green color -->
+  </material>
+
+  <xacro:macro name="link_1" params="">
+
+    <!-- Link 1 -->
+    <link name="${link_1_name}">
+
+      <visual>
+        <origin xyz="${link_1_origin_xyz}" rpy="${link_1_origin_xyz}" />
+        <geometry>
+          <mesh filename="${link_1_mesh}" />
+        </geometry>
+        <material name="HELMORO_BLUE"/> <!-- rviz will use this color -->
+      </visual>
+      <collision>
+        <origin xyz="${link_1_collision_origin_xyz}" rpy="${link_1_collision_origin_rpy}" />
+        <geometry>
+          <box size="${link_1_width} ${link_1_length} ${link_1_height}" />
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- Dummy inertia link, because KDL cannot have inertia on the base link -->
+    <link name="${link_1_name}_inertia">
+      <inertial>
+        <origin xyz="${link_1_cog}" rpy="${link_1_inertia_rpy}" />
+        <mass value="${link_1_mass}" />
+        <inertia ixx="${link_1_ixx}" ixy="${link_1_ixy}" ixz="${link_1_ixz}" iyy="${link_1_iyy}" iyz="${link_1_iyz}" izz="${link_1_izz}" />
+      </inertial>
+    </link>
+
+    <!-- Fixed joint to add dummy inertia link -->
+    <joint name="${link_1_name}_to_${link_1_name}_inertia" type="fixed">
+      <parent link="${link_1_name}" />
+      <child link="${link_1_name}_inertia" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:macro name="link_2" params="">
+
+    <!-- Link 2 -->
+    <link name="${link_2_name}">
+      <visual>
+        <origin xyz="${link_2_origin_xyz}" rpy="${link_2_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_2_length}" radius="${link_2_radius}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+      </visual>
+      <collision>
+        <origin xyz="${link_2_origin_xyz}" rpy="${link_2_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_2_length}" radius="${link_2_radius}" />
+        </geometry>
+        <surface>
+          <friction>
+            <fdir1>1 0 0</fdir1>
+            <kp>1000000</kp> <!-- kp and kd for rubber -->
+            <kd>100</kd>
+            <mu>1</mu>
+            <mu2>1</mu2>
+            <slip1>0.5</slip1>
+            <slip2>0</slip2>
+          </friction>
+        </surface>
+      </collision>
+      <inertial>
+        <origin xyz="${link_2_cog}" rpy="${link_2_inertia_rpy}" />
+        <mass value="${link_2_mass}" />
+        <inertia ixx="${link_2_ixx}" ixy="${link_2_ixy}" ixz="${link_2_ixz}" iyy="${link_2_iyy}" iyz="${link_2_iyz}" izz="${link_2_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_1_name}" type="${joint_1_type}">
+      <parent link="${joint_1_parent}" />
+      <child link="${joint_1_child}" />
+      <origin xyz="${joint_1_origin_xyz}" rpy="${joint_1_origin_rpy}" />
+      <axis xyz="${joint_1_axis}" />
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:macro name="link_3" params="">
+
+    <!-- Link 3 -->
+    <link name="${link_3_name}">
+      <visual>
+        <origin xyz="${link_3_origin_xyz}" rpy="${link_3_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_3_length}" radius="${link_3_radius}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+      </visual>
+      <collision>
+        <origin xyz="${link_3_origin_xyz}" rpy="${link_3_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_3_length}" radius="${link_3_radius}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+        <surface>
+          <friction>
+            <fdir1>1 0 0</fdir1>
+            <kp>1000000</kp> <!-- kp and kd for rubber -->
+            <kd>100</kd>
+            <mu>1</mu>
+            <mu2>1</mu2>
+            <slip1>0.5</slip1>
+            <slip2>0</slip2>
+          </friction>
+        </surface>
+      </collision>
+      <inertial>
+        <origin xyz="${link_3_cog}" rpy="${link_3_inertia_rpy}" />
+        <mass value="${link_3_mass}" />
+        <inertia ixx="${link_3_ixx}" ixy="${link_3_ixy}" ixz="${link_3_ixz}" iyy="${link_3_iyy}" iyz="${link_3_iyz}" izz="${link_3_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_2_name}" type="${joint_2_type}">
+      <parent link="${joint_2_parent}" />
+      <child link="${joint_2_child}" />
+      <origin xyz="${joint_2_origin_xyz}" rpy="${joint_2_origin_rpy}" />
+      <axis xyz="${joint_2_axis}" />
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:macro name="link_4" params="">
+
+    <!-- Link 4 -->
+    <link name="${link_4_name}">
+      <visual>
+        <origin xyz="${link_4_origin_xyz}" rpy="${link_4_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_4_length}" radius="${link_4_radius}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+      </visual>
+      <collision>
+        <origin xyz="${link_4_origin_xyz}" rpy="${link_4_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_4_length}" radius="${link_4_radius}" />
+        </geometry>
+        <surface>
+          <friction>
+            <fdir1>1 0 0</fdir1>
+            <kp>1000000</kp> <!-- kp and kd for rubber -->
+            <kd>100</kd>
+            <mu>1</mu>
+            <mu2>1</mu2>
+            <slip1>0.5</slip1>
+            <slip2>0</slip2>
+          </friction>
+        </surface>
+      </collision>
+      <inertial>
+        <origin xyz="${link_4_cog}" rpy="${link_4_inertia_rpy}" />
+        <mass value="${link_4_mass}" />
+        <inertia ixx="${link_4_ixx}" ixy="${link_4_ixy}" ixz="${link_4_ixz}" iyy="${link_4_iyy}" iyz="${link_4_iyz}" izz="${link_4_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_3_name}" type="${joint_3_type}">
+      <parent link="${joint_3_parent}" />
+      <child link="${joint_3_child}" />
+      <origin xyz="${joint_3_origin_xyz}" rpy="${joint_3_origin_rpy}" />
+      <axis xyz="${joint_3_axis}" />
+    </joint>
+
+  </xacro:macro>
+
+  <xacro:macro name="link_5" params="">
+
+    <!-- Link 5 -->
+    <link name="${link_5_name}">
+      <visual>
+        <origin xyz="${link_5_origin_xyz}" rpy="${link_5_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_5_length}" radius="${link_5_radius}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+      </visual>
+      <collision>
+        <origin xyz="${link_5_origin_xyz}" rpy="${link_5_origin_rpy}" />
+        <geometry>
+          <cylinder length="${link_5_length}" radius="${link_5_radius}" />
+        </geometry>
+        <surface>
+          <friction>
+            <fdir1>1 0 0</fdir1>
+            <kp>1000000</kp> <!-- kp and kd for rubber -->
+            <kd>100</kd>
+            <mu>10</mu>
+            <mu2>10</mu2>
+            <slip1>0.5</slip1>
+            <slip2>0</slip2>
+          </friction>
+        </surface>
+      </collision>
+      <inertial>
+        <origin xyz="${link_5_cog}" rpy="${link_5_inertia_rpy}" />
+        <mass value="${link_5_mass}" />
+        <inertia ixx="${link_5_ixx}" ixy="${link_5_ixy}" ixz="${link_5_ixz}" iyy="${link_5_iyy}" iyz="${link_5_iyz}" izz="${link_5_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_4_name}" type="${joint_4_type}">
+      <parent link="${joint_4_parent}" />
+      <child link="${joint_4_child}" />
+      <origin xyz="${joint_4_origin_xyz}" rpy="${joint_4_origin_rpy}" />
+      <axis xyz="${joint_4_axis}" />
+    </joint>
+
+  </xacro:macro>
+
+  <!-- Link 6 -->
+  <xacro:macro name="link_6" params="">
+
+    <link name="${link_6_name}">
+      <visual>
+        <origin xyz="${link_6_origin_xyz}" rpy="${link_6_origin_rpy}" />
+        <geometry>
+          <mesh filename="${link_6_mesh}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+      </visual>
+      <inertial>
+        <origin xyz="${link_6_cog}" rpy="${link_6_inertia_rpy}" />
+        <mass value="0.1" />
+        <inertia ixx="${link_6_ixx}" ixy="${link_6_ixy}" ixz="${link_6_ixz}" iyy="${link_6_iyy}" iyz="${link_6_iyz}" izz="${link_6_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_5_name}" type="${joint_5_type}">
+      <parent link="${joint_5_parent}" />
+      <child link="${joint_5_child}" />
+      <origin xyz="${joint_5_origin_xyz}" rpy="${joint_5_origin_rpy}" />
+    </joint>
+
+  </xacro:macro>
+
+  <!--joints for camera_link-->
+  <joint name="camera_link_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="${link_6_name}" />
+    <child link="camera_link" />
+  </joint>
+  <link name="camera_link"></link>
+
+  <!--joints for rgb_camera-->
+  <joint name="camera_rgb_frame_joint" type="fixed">
+    <origin xyz="0 0.045 0" rpy="0 0 0" />
+    <parent link="camera_link" />
+    <child link="camera_rgb_frame" />
+  </joint>
+  <link name="camera_rgb_frame"></link>
+
+  <joint name="camera_rgb_optical_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}" />
+    <parent link="camera_rgb_frame" />
+    <child link="camera_rgb_optical_frame" />
+  </joint>
+  <link name="camera_rgb_optical_frame"></link>
+
+  <!--joints for depth_camera-->
+  <joint name="camera_depth_frame_joint" type="fixed">
+    <origin xyz="0 0.02 0" rpy="0 0 0" />
+    <parent link="camera_link" />
+    <child link="camera_depth_frame" />
+  </joint>
+  <link name="camera_depth_frame"></link>
+
+  <joint name="camera_rgb_depth_frame_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="${-PI/2} 0 ${-PI/2}" />
+    <parent link="camera_depth_frame" />
+    <child link="camera_depth_optical_frame" />
+  </joint>
+  <link name="camera_depth_optical_frame"></link>
+
+  <!-- joints for the center of the fork-->
+  <joint name="fork_joint" type="fixed">
+    <origin xyz="0.13 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="fork_frame" />
+  </joint>
+  <link name="fork_frame"></link>
+
+  <!-- Link 7 -->
+  <xacro:macro name="link_7" params="">
+
+    <link name="${link_7_name}">
+      <visual>
+        <origin xyz="${link_7_origin_xyz}" rpy="${link_7_origin_rpy}" />
+        <geometry>
+          <mesh filename="${link_7_mesh}" />
+        </geometry>
+        <material name="HELMORO_BLACK"/> <!-- rviz will use this color -->
+      </visual>
+      <inertial>
+        <origin xyz="${link_7_cog}" rpy="${link_7_inertia_rpy}" />
+        <mass value="${link_7_mass}" />
+        <inertia ixx="${link_7_ixx}" ixy="${link_7_ixy}" ixz="${link_7_ixz}" iyy="${link_7_iyy}" iyz="${link_7_iyz}" izz="${link_7_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_6_name}" type="${joint_6_type}">
+      <parent link="${joint_6_parent}" />
+      <child link="${joint_6_child}" />
+      <origin xyz="${joint_6_origin_xyz}" rpy="${joint_6_origin_rpy}" />
+    </joint>
+
+
+  </xacro:macro>
+
+  <!-- Link 8 -->
+  <xacro:macro name="link_8" params="">
+
+    <link name="${link_8_name}">
+      <visual>
+        <origin xyz="${link_8_origin_xyz}" rpy="${link_8_origin_rpy}" />
+        <geometry>
+          <box size="${link_8_width} ${link_8_length} ${link_8_height}" />
+        </geometry>
+      </visual>
+      <inertial>
+        <origin xyz="${link_8_cog}" rpy="${link_8_inertia_rpy}" />
+        <mass value="${link_8_mass}" />
+        <inertia ixx="${link_8_ixx}" ixy="${link_8_ixy}" ixz="${link_8_ixz}" iyy="${link_8_iyy}" iyz="${link_8_iyz}" izz="${link_8_izz}" />
+      </inertial>
+    </link>
+
+    <joint name="${joint_7_name}" type="${joint_7_type}">
+      <parent link="${joint_7_parent}" />
+      <child link="${joint_7_child}" />
+      <origin xyz="${joint_7_origin_xyz}" rpy="${joint_7_origin_rpy}" />
+    </joint>
+
+
+  </xacro:macro>
+
+
+</robot>

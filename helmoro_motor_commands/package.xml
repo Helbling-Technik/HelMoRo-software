@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>helmoro_motor_commands</name>
+  <version>0.0.0</version>
+  <description>The Helbling mobile robot move base package</description>
+  
+  <maintainer email="joel.habersatter@helbling.ch">haj</maintainer>
+  <author email="joel.habersatter@helbling.ch">haj</author>
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>helmoro_msgs</depend>
+  <depend>roscpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>any_node</depend>
+  <depend>helmoro_description</depend>
+
+</package>

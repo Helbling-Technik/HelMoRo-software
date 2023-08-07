@@ -1,0 +1,25 @@
+<launch>
+  <!--Remember to specify the correct map in helmoro_2dnav/move_base.launch-->
+
+  <!--Navigation Stack arguments-->
+  <arg name="use_object_detector" default="true" />
+  <arg name="manipulate_objects" default="true" />
+  <arg name="is_real_robot" default="true" />
+  <arg name="use_rviz" default="false" />
+  <arg name="use_gui" default="false" />
+
+  <!--Helmoro-->
+  <include file="$(find helmoro_description)/launch/nav_helmoro.launch">
+    <arg name="is_real_robot" value="$(arg is_real_robot)" />
+    <arg name="use_rviz" value="$(arg use_rviz)" />
+    <arg name="use_gui" value="$(arg use_gui)" />
+  </include>
+
+  <!--Run object detector and object map-->
+  <include file="$(find object_detector)/launch/object_detector.launch" />
+  <include file="$(find object_map)/launch/object_map.launch" />
+
+  <!--Run helmoro_navigation_goals-->
+  <include file="$(find helmoro_navigation_goals)/launch/navigation_goals.launch" if="$(arg manipulate_objects)" />
+
+</launch>

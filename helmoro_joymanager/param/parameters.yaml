@@ -1,0 +1,4 @@
+scaling_factors:
+    linear_velocity: 0.25
+    angular_velocity: 0.2
+    

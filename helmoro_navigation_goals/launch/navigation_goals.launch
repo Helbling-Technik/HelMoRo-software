@@ -1,0 +1,8 @@
+<launch>
+
+  <!-- helmoro navigation goals node -->
+  <node name="helmoro_navigation_goals" pkg="helmoro_navigation_goals" type="helmoro_navigation_goals_node" output ="screen">
+    <rosparam command="load" file="$(find helmoro_navigation_goals)/param/parameters.yaml"/>
+  </node>
+
+</launch>

@@ -1,0 +1,79 @@
+DWAPlannerROS:
+  # Robot Configuration Parameters
+
+  # Acceleration limits
+  acc_lim_x: 3.0
+
+  acc_lim_y: 0.0 # diff drive robot
+
+  acc_lim_theta: 12.0
+
+  # Translation speed maximas
+  max_vel_trans: 0.3 #choose slightly less than the base's capability
+
+  min_vel_trans: 0.05 #this is the min trans velocity when there is negligible rotational velocity
+
+  # directional translational speed maximas
+  max_vel_x: 0.2
+
+  min_vel_x: -0.2
+
+  max_vel_y: 0.0 #diff drive robot,don't need set vel_y
+
+  min_vel_y: 0.0
+
+  # rotational maximas
+  max_vel_theta: 1 #choose slightly less than the base's capability
+
+  # Change this according to the surface Helmoro is on. Parket: 0.01
+  min_vel_theta: 0.01
+
+  # Goal Tolerance Parameters
+
+  #min_vel_x * sim_time < 2 * xy_goal_tolerance
+  #min_vel_theta * sim_time < 2 * yaw_goal_tolerance
+
+  yaw_goal_tolerance: 0.15 # 0.1 rad = 5.7 degree
+
+  xy_goal_tolerance: 0.15
+
+  latch_xy_goal_tolerance: false
+
+  # Forward Simulation Parameters
+
+  sim_time: 1.7 # 2 default 1.7
+
+  sim_granularity: 0.025
+  vx_samples: 16 # default 3
+
+  vy_samples: 1 # diff drive robot, there is only one sample
+
+  vth_samples: 20 # 20
+
+  controller_frequency: 25
+
+  # Trajectory Scoring Parameters
+  # Path_distance_bias: Defines the weight of the controller's proximity to a given path.
+  path_distance_bias: 32 # 32.0
+  # Goal_distance_bias: defines the weight of the controller's proximity to the local target point.
+  goal_distance_bias: 24 # 24.0
+  # Occdist_scale: Defines the extent to which the controller avoids obstacles.
+  occdist_scale: 0.01 # 0.01
+
+  forward_point_distance: 0 # 0.325
+
+  stop_time_buffer: 0.35 # 0.2
+
+  scaling_speed: 0.25 # 0.25
+
+  max_scaling_factor: 0.2 # 0.2
+
+  publish_cost_grid: false
+
+  # Oscillation Prevention Parameters
+
+  oscillation_reset_dist: 0.05 # default 0.05
+
+  # Global Plan Parameters
+
+  prune_plan: true

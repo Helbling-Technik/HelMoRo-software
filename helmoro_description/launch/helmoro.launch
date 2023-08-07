@@ -1,0 +1,71 @@
+<launch>
+
+  <!-- these are the arguments you can pass this launch file -->
+  <!-- gazebo arguments-->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="use_gui" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="world" default="$(find helmoro_gazebo_plugin)/worlds/helmoro_wohnung_mob"/>
+  <arg name="running_in_standalone" default="true"/>
+
+  <!-- rviz arguments -->
+  <arg name="use_rviz" default="false"/>
+  <arg name="rviz_config_file" default="$(find helmoro_description)/rviz/rviz_config.rviz"/>
+
+  <!--usage arguments-->
+  <!-- if joystick was not specified especiallz run if HMI rviz is started-->
+  <arg name="use_joystick" default="$(arg use_rviz)"/>
+  <arg name="is_real_robot" default="true"/>
+  <arg name="use_lidar" default="true"/>
+  <arg name="use_rgbd_camera" default="true"/>
+
+  <!-- Run xacro script to generate description -->
+  <param name="helmoro_description/urdf" command="$(find xacro)/xacro --inorder
+    '$(find helmoro_description)/urdf/helmoro.urdf'
+    plugin_file:=libhelmoro_gazebo_plugin.so
+    simulation:=true"/>
+
+  <rosparam command="load" ns="helmoro_description" file="$(find helmoro_description)/param/default.yaml"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+  <group unless="$(arg is_real_robot)">
+    <group if="$(arg running_in_standalone)">
+      <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world)"/>
+        <arg name="debug" value="$(arg debug)"/>
+        <arg name="gui" value="$(arg use_gui)"/>
+        <arg name="paused" value="$(arg paused)"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+      </include>
+    </group>
+
+    <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model helmoro -param helmoro_description/urdf -x -1 -y -1 -z 0.1"/>
+
+    <!--Run node that edits the pointcloud from the rgbd-camera for local obstacle avoidance-->
+    <node name="helmoro_local_obstacle_node" pkg="helmoro_local_obstacle" type="helmoro_local_obstacle_node"/>
+  </group>
+
+  <group if="$(arg is_real_robot)">
+    <!--RPLidar-->
+    <include file="$(find rplidar_ros)/launch/rplidar.launch" if="$(arg use_lidar)"/>
+    <!--ASTRA PRO RGBD Camera-->
+    <include file="$(find astra_camera)/launch/astrapro.launch" if="$(arg use_rgbd_camera)"/>
+    <!--IMU BNO055-->
+    <include file="$(find imu_bno055)/launch/imu.launch"/>
+  </group>
+
+  <!--motor commands node-->
+  <include file="$(find helmoro_motor_commands)/launch/motor_commands.launch"/>
+
+  <!--Run node that publishes robot state-->
+  <node name="helmoro_state_publisher_node" pkg="helmoro_state_publisher" type="helmoro_state_publisher_node"/>
+
+  <!--Run node that interprets joystick inputs and publishes a twist msg-->
+  <include file="$(find helmoro_joymanager)/launch/joymanager.launch" if="$(arg use_joystick)"/>
+
+  <!--Launch RViz-->
+  <node type="rviz" name="rviz_helmoro" if="$(arg use_rviz)" pkg="rviz" args="-d $(arg rviz_config_file)"/>
+
+</launch>
