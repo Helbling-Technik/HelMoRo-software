@@ -78,6 +78,7 @@ public:
 private:
   StateEnum state_;
 
+  // ros
   ros::Subscriber sub_obj_point_;
   ros::Subscriber sub_obj_map_;
   ros::Subscriber sub_joystick_commands_;

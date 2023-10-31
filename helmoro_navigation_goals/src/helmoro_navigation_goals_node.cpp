@@ -3,6 +3,12 @@
 // nodewrap
 #include "any_node/Nodewrap.hpp"
 
+/**
+ * @brief ros node main function
+ * 
+ * @param argc
+ * @param argv
+ */
 int main(int argc, char **argv)
 {
   typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;

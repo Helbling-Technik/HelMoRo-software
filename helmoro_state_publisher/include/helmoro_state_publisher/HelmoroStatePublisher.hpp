@@ -20,12 +20,10 @@
 #include <kdl/tree.hpp>
 #include <robot_state_publisher/robot_state_publisher.h>
 #include <kdl_parser/kdl_parser.hpp>
-#include <tf/transform_broadcaster.h>
 #include "helmoro_msgs/HelmoroWheelEncoderData.h"
 #include "helmoro_description/enums/enums.hpp"
 #include "helmoro_description/helmoro_names.hpp"
 #include "tf/transform_datatypes.h"
-//#include "LinearMath/btMatrix3x3.h"
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <tf2/LinearMath/Quaternion.h>
 
@@ -38,11 +36,7 @@ class HelmoroStatePublisher : public any_node::Node
 
         HelmoroStatePublisher(NodeHandlePtr nh);
         virtual ~HelmoroStatePublisher();
-        /*HelmoroStatePublisher() = delete;  // constructor needs to take a shared_ptr to a ros::Nodehandle instance.
-        explicit HelmoroStatePublisher(any_node::Node::NodeHandlePtr nh) : any_node::Node(nh) {}
-
-        ~HelmoroStatePublisher() override = default;
-        */
+        
         virtual bool init();
         virtual void cleanup();
         virtual bool update(const any_worker::WorkerEvent& event);
@@ -56,7 +50,7 @@ class HelmoroStatePublisher : public any_node::Node
         void imuSubCallback_(const sensor_msgs::ImuConstPtr& imu_msg);
 
     private:
-        //! ROS publishers
+        // ROS publishers
         ros::Publisher odomPub_;
 
         // ROS subscribers
@@ -72,9 +66,7 @@ class HelmoroStatePublisher : public any_node::Node
         std::map<std::string, double> joint_positions_;
         double x_dot_;
         double theta_dot_;
-        //geometry_msgs::TransformStamped odom_tf_;
         geometry_msgs::Quaternion orientation_;
-        //geometry_msgs::TransformStamped tf_imu_base_;
         tf2::Quaternion quat_imu_base_;
         tf2::Matrix3x3 rotm_imu_base_;
         bool firstImuMsg_;
@@ -83,7 +75,6 @@ class HelmoroStatePublisher : public any_node::Node
         double odom_position_[3];
         geometry_msgs::Quaternion odom_quat;
         double theta_;
-        //tf::TransformBroadcaster odom_broadcaster_;
         KDL::Tree helmoroKdlTree_;
         robot_state_publisher::RobotStatePublisher* statePublisherPtr_;
         tf::TransformBroadcaster odom_broadcaster_;
