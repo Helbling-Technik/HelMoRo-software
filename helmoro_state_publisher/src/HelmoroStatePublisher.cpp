@@ -1,18 +1,39 @@
 #include "helmoro_state_publisher/HelmoroStatePublisher.hpp"
 
+/**
+ * @file HelmoroStatePublisher.cpp
+ * @brief Implementation file for the HelmoroStatePublisher class.
+ * 
+ * This file contains the implementation of the HelmoroStatePublisher class, which is responsible for publishing the state of the HelMoRo robot.
+ * The class initializes publishers and subscribers, reads parameters, and updates the robot state.
+ * The class also publishes the robot's odometry as a nav_msg and tf.
+ */
+
 namespace helmoro_state_publisher {
 
+/**
+ * @brief Constructor for the HelmoroStatePublisher class.
+ * 
+ * @param nh A shared pointer to the ROS node handle.
+ */
 HelmoroStatePublisher::HelmoroStatePublisher(NodeHandlePtr nh):
     any_node::Node(nh),
     odomPub_()
 {
 }
-                                                                                                                                                                              
+
+/**
+ * @brief Destructor for the HelmoroStatePublisher class.
+ */
 HelmoroStatePublisher::~HelmoroStatePublisher(){
 
 }
 
-
+/**
+ * @brief Initializes the HelmoroStatePublisher class.
+ * 
+ * @return True if initialization was successful, false otherwise.
+ */
 bool HelmoroStatePublisher::init() {
 
     time_last_ = ros::Time::now();
@@ -41,10 +62,19 @@ bool HelmoroStatePublisher::init() {
     return true;
 }
 
+/**
+ * @brief Cleans up the HelmoroStatePublisher class.
+ */
 void HelmoroStatePublisher::cleanup() {
 
 }
 
+/**
+ * @brief Updates the robot state.
+ * 
+ * @param event The worker event.
+ * @return True if the update was successful, false otherwise.
+ */
 bool HelmoroStatePublisher::update(const any_worker::WorkerEvent& event) {
 
     publishOdometry();
@@ -52,6 +82,9 @@ bool HelmoroStatePublisher::update(const any_worker::WorkerEvent& event) {
     return true;
 }
 
+/**
+ * @brief Reads the parameters for the HelmoroStatePublisher class.
+ */
 void HelmoroStatePublisher::readParameters(){
 
     dx_ = param<double>("/helmoro_description/dimensions/wheel_spacing_x", 5.0);
@@ -65,6 +98,15 @@ void HelmoroStatePublisher::readParameters(){
     }
 }
 
+/**
+ * @brief Gets the transform from KDL.
+ * 
+ * @param tree The KDL tree.
+ * @param parent The parent frame.
+ * @param child The child frame.
+ * @param tf_quat The quaternion.
+ * @param tf_rotm The rotation matrix.
+ */
 void HelmoroStatePublisher::getTransformFromKDL(KDL::Tree tree, std::string parent, std::string child, tf2::Quaternion& tf_quat, tf2::Matrix3x3& tf_rotm){
 
     KDL::Chain chain;
@@ -76,19 +118,26 @@ void HelmoroStatePublisher::getTransformFromKDL(KDL::Tree tree, std::string pare
     tf_rotm.setRotation(tf_quat);
 }
 
-
+/**
+ * @brief Initializes the publishers for the HelmoroStatePublisher class.
+ */
 void HelmoroStatePublisher::initPublishers(){
     odomPub_ = getNodeHandle().advertise<nav_msgs::Odometry>("/odom", 1, this);
     //odomPub_ = advertise<nav_msgs::Odometry>("odometry_publisher", "/odom", 1);
 }
 
+/**
+ * @brief Initializes the subscribers for the HelmoroStatePublisher class.
+ */
 void HelmoroStatePublisher::initSubscribers(){
 
     jointStateSub_ = getNodeHandle().subscribe("/helmoro_joint_states", 1,  &HelmoroStatePublisher::jointStateSubCallback_, this);
     imuSub_ = getNodeHandle().subscribe("/imu/data", 1, &HelmoroStatePublisher::imuSubCallback_, this);
 }
 
-
+/**
+ * @brief Publishes the robot's odometry as a nav_msg and tf.
+ */
 void HelmoroStatePublisher::publishOdometry() {
 
     // Publish odom as nav_msg
@@ -121,6 +170,11 @@ void HelmoroStatePublisher::publishOdometry() {
     
 }
 
+/**
+ * @brief Callback function for the joint state subscriber.
+ * 
+ * @param msg The joint state message.
+ */
 void HelmoroStatePublisher::jointStateSubCallback_(const sensor_msgs::JointStateConstPtr& msg){
 
     ros::Time time_current;
@@ -143,6 +197,11 @@ void HelmoroStatePublisher::jointStateSubCallback_(const sensor_msgs::JointState
     time_last_ = time_current;
 }
 
+/**
+ * @brief Callback function for the IMU subscriber.
+ * 
+ * @param imu_msg The IMU message.
+ */
 void HelmoroStatePublisher::imuSubCallback_(const sensor_msgs::ImuConstPtr& imu_msg){
     
     if(!std::isnan(imu_msg->orientation.x)){

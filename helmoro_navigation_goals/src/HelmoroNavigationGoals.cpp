@@ -1,3 +1,8 @@
+/**
+ * @file HelmoroNavigationGoals.cpp
+ * @brief Implementation of the HelmoroNavigationGoals class.
+ */
+
 #include "helmoro_navigation_goals/HelmoroNavigationGoals.hpp"
 
 // STL
@@ -28,15 +33,28 @@
 
 namespace helmoro_navigation_goals
 {
+/**
+ * @brief Constructor for HelmoroNavigationGoals class.
+ *
+ * @param nh NodeHandle pointer.
+ */
 HelmoroNavigationGoals::HelmoroNavigationGoals(NodeHandlePtr nh)
   : any_node::Node(nh), action_client_("move_base"), tf_buffer_(), sub_tf_(tf_buffer_)
 {
 }
 
+/**
+ * @brief Destructor for HelmoroNavigationGoals class.
+ */
 HelmoroNavigationGoals::~HelmoroNavigationGoals()
 {
 }
 
+/**
+ * @brief Initializes the HelmoroNavigationGoals class.
+ *
+ * @return true if initialization is successful, false otherwise.
+ */
 bool HelmoroNavigationGoals::init()
 {
   sub_joystick_commands_ =
@@ -64,15 +82,24 @@ bool HelmoroNavigationGoals::init()
   auto workerTimeStep = param<double>("time_step_pub", 0.1);
   constexpr int priority = 0;
   addWorker("HelmoroNavigationGoals::updateWorker", workerTimeStep, &HelmoroNavigationGoals::update, this, priority);
-  return true;
 
   ROS_INFO("[Navigation Goals]: Init done!");
+  return true;
 }
 
+/**
+ * @brief Cleans up the HelmoroNavigationGoals class.
+ */
 void HelmoroNavigationGoals::cleanup()
 {
 }
 
+/**
+ * @brief Updates the HelmoroNavigationGoals class.
+ *
+ * @param event WorkerEvent object.
+ * @return true if update is successful, false otherwise.
+ */
 bool HelmoroNavigationGoals::update(const any_worker::WorkerEvent& event)
 {
   StateEnum old_state = state_;
@@ -257,6 +284,9 @@ bool HelmoroNavigationGoals::update(const any_worker::WorkerEvent& event)
 
 }  // update
 
+/**
+ * @brief Updates the state machine.
+ */
 void HelmoroNavigationGoals::UpdateStateMachine()
 {
   // Check first if collection of objects should be stopped
@@ -336,6 +366,9 @@ void HelmoroNavigationGoals::UpdateStateMachine()
   }
 }
 
+/**
+ * @brief Reads parameters from parameter server.
+ */
 void HelmoroNavigationGoals::ReadParameters()
 {
   // Finding distance to fork from base
@@ -418,6 +451,14 @@ geometry_msgs::Pose HelmoroNavigationGoals::CalculateSetbackPose(geometry_msgs::
   return setback_pose;
 }
 
+/**
+ * @brief sets a parameter of the move_base node
+ *
+ * @param name name of the parameter
+ * @param value value of the parameter
+ *
+ * @return old value of the parameter
+ */
 double HelmoroNavigationGoals::SetMoveBaseParams(std::string name, double value)
 {
   dynamic_reconfigure::ReconfigureRequest srv_req;
@@ -442,6 +483,11 @@ double HelmoroNavigationGoals::SetMoveBaseParams(std::string name, double value)
   return old_value;
 }
 
+/**
+ * @brief gets the current position of the helmoro
+ *
+ * @return void
+ */
 void HelmoroNavigationGoals::GetHelmoroPosition()
 {
   try {
@@ -452,6 +498,14 @@ void HelmoroNavigationGoals::GetHelmoroPosition()
   }
 }
 
+/**
+ * @brief gets the position of an object from the object map
+ *
+ * @param color color of the object
+ * @param uid uid of the object
+ *
+ * @return void
+ */
 void HelmoroNavigationGoals::GetObjectPosition(unsigned int color, int uid)
 {
   // service call to get object
@@ -484,12 +538,26 @@ void HelmoroNavigationGoals::GetObjectPosition(unsigned int color, int uid)
   }
 }
 
+/**
+ * @brief gets the position of an object from the object map
+ *
+ * @param color color of the object
+ *
+ * @return void
+ */
 void HelmoroNavigationGoals::GetObjectPosition(unsigned int color)
 {
   GetObjectPosition(color, -1);
 }
 
 // Callbacks
+/**
+ * @brief Callback for joystick commands
+ *
+ * @param msg joystick message
+ *
+ * @return void
+ */
 void HelmoroNavigationGoals::joystickCallback(const sensor_msgs::JoyConstPtr& msg)
 {
   start_collecting_objects_command_ = (msg->buttons[7] == 1);
