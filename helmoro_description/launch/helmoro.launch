@@ -41,7 +41,7 @@
     </group>
 
     <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model helmoro -param helmoro_description/urdf -x -1 -y -1 -z 0.1"/>
+    <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model helmoro -param helmoro_description/urdf -x 0 -y 0 -z 0.1"/>
 
     <!--Run node that edits the pointcloud from the rgbd-camera for local obstacle avoidance-->
     <node name="helmoro_local_obstacle_node" pkg="helmoro_local_obstacle" type="helmoro_local_obstacle_node"/>
