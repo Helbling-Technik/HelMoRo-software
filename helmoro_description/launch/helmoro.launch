@@ -15,7 +15,7 @@
 
   <!--usage arguments-->
   <!-- if joystick was not specified especiallz run if HMI rviz is started-->
-  <arg name="use_joystick" default="$(arg use_rviz)"/>
+  <arg name="use_joystick" default="$(arg use_gui)"/>
   <arg name="is_real_robot" default="true"/>
   <arg name="use_lidar" default="true"/>
   <arg name="use_rgbd_camera" default="true"/>
