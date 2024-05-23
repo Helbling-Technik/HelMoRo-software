@@ -1,9 +1,6 @@
 cmake_minimum_required(VERSION 3.10.2)
 project(helmoro_motor_commands)
 
-## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
-
 find_package(catkin_simple REQUIRED)
 
 
