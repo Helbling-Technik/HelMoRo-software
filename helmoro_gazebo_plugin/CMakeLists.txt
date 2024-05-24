@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.10.2)
 project(helmoro_gazebo_plugin)
 
 include (FindPkgConfig)
@@ -6,6 +6,7 @@ if (PKG_CONFIG_FOUND)
   pkg_check_modules(GAZEBO gazebo)
 endif()
 
+set(CMAKE_CXX_STANDARD 17)
 find_package(Boost REQUIRED COMPONENTS system)
 find_package(Eigen3 REQUIRED)
 
@@ -40,7 +41,7 @@ catkin_package(
 ###########
 ## Build ##
 ###########
-add_definitions(-std=c++11)
+add_definitions(-std=c++14)
 add_definitions(-DDEBUG_PLUGIN)
 
 include_directories(

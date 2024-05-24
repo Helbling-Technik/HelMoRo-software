@@ -56,7 +56,7 @@ bool HelmoroStatePublisher::init() {
     statePublisherPtr_ = new robot_state_publisher::RobotStatePublisher(helmoroKdlTree_);
     statePublisherPtr_->publishFixedTransforms("", true);
 
-    auto workerTimeStep = param<double>("time_step_pub", 0.01);
+    auto workerTimeStep = param<double>("time_step_pub", 0.02);
     constexpr int priority = 0;
     addWorker("HelmoroStatePublisher::updateWorker", workerTimeStep, &HelmoroStatePublisher::update, this, priority);
     return true;
