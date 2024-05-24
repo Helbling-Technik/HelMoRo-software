@@ -9,9 +9,6 @@ find_package(OpenCV 4.2 REQUIRED)
 
 include_directories(/usr/local/include/opencv2)
 
-#message(${OpenCV_LIBS})
-#message(${OpenCV_INCLUDE_DIRS})
-
 catkin_simple()
 
 # add files
